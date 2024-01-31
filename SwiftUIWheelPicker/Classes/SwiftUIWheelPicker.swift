@@ -41,7 +41,7 @@ public struct SwiftUIWheelPicker<Content: View, Item>: View {
         GeometryReader { geometry in
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
                 HStack(spacing: 0) {
-                    ForEach(1...items.wrappedValue.count, id: \.self) { position in
+                    ForEach(0..<items.wrappedValue.count, id: \.self) { position in
                         drawContentView(position, geometry: geometry)
                     }
 //                    ForEach(items.wrappedValue.indices) { position in
