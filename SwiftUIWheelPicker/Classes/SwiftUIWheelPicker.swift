@@ -76,17 +76,12 @@ public struct SwiftUIWheelPicker<Content: View, Item>: View {
                 DragGesture().updating(self.$translation) { value, state, _ in
                     state = value.translation.width
                 }
-                .onChanged{ value in
-                        let offset = value.translation.width / self.calcContentWidth(geometry, option: contentWidthOption)
-                        let newIndex = (CGFloat(self.position) - offset).rounded()
-                        self.position = min(max(Int(newIndex), 0), self.items.wrappedValue.count - 1)
-                    }
-                    .onEnded { value in
-                        //                    let offset = value.translation.width / self.calcContentWidth(geometry, option: contentWidthOption)
-                        //                    let newIndex = (CGFloat(self.position) - offset).rounded()
-                        //                    self.position = min(max(Int(newIndex), 0), self.items.wrappedValue.count - 1)
-                        self.onValueChanged?(items.wrappedValue[self.position])
-                    }
+                .onEnded { value in
+                    let offset = value.translation.width / self.calcContentWidth(geometry, option: contentWidthOption)
+                    let newIndex = (CGFloat(self.position) - offset).rounded()
+                    self.position = min(max(Int(newIndex), 0), self.items.wrappedValue.count - 1)
+                    self.onValueChanged?(items.wrappedValue[self.position])
+                }
             )
         }
     }
